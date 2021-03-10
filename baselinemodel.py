@@ -17,6 +17,8 @@ import pandas as pd
 
 df = pd.read_csv('gdrive/MyDrive/germanyPPRs.csv', error_bad_lines=False, engine="python")
 
+# split off test set here
+
 dls = TextDataLoaders.from_df(df, text_col = 'text', label_col = 'label')
 
 learn = text_classifier_learner(dls, AWD_LSTM, drop_mult=0.5, metrics=accuracy) # train model
