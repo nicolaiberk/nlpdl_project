@@ -133,25 +133,35 @@ For the final assessment of classifier performance, we will predict the author's
 
 
 
-\paragraph{Results:} Applying model 2 (fine-tuned on party press releases) to newspaper articles 
+\paragraph{Results:} We classified a training set of 4,000 newspaper articles using model 2 (fine-tuned on party press releases). We expected articles from conservative newspapers FAZ and Welt to be more similar to Union and FDP and possibly the AfD, especially compared to the progressive TAZ. Spiegel Online (SPON) is expected to be equally similar to right- and leftwing newspapers.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{reports/midterm-report-latex/figures/preds.png}
-    \caption{Performance of model 2 for the classification of newspaper articles.}
-    \label{fig:party}
-\end{figure}
+The results can be seen in table \ref{tbl:means}, which shows the average probability for an article to be classified as being authored by a given party. As expected, FAZ and Welt are very similar to Union (81\%) and FDP (58\%/55\%), but also rather similar to the Greens (36\%/35\%). While they show the highest similarity to the AfD (8\%/7\%), similarity to the radical-right party is generally on a very low level among all newspapers. Spiegel Online (SPON) shows lower similarity to the FDP and closer to Union and Greens, but generally rather similar to the right-wing newspapers. The TAZ shows a comparatively different profile, being very similar to the greens (an average article is classified as being authored by the Grüne with 70\%), and less similar to the Union parties (41\%), the FDP (32\%), and the AfD (5\%). Surprisingly, it also shows the lowest similarity to the Linke (13\%). Maybe most surprising is the general low similarity to SPD press releases (4\%/5\%). It seems the party has a rather distinctive style in its press releases.
 
+\begin{table}[!htbp] \centering 
+    \begin{tabular}{@{\extracolsep{1pt}} lcccccc}
+    \\[-1.8ex]\hline 
+    \hline \\[-1.8ex] 
+    Paper & Linke & Grüne & SPD & Union & FDP & AfD \\ 
+    \hline \\[-1.8ex] 
+    FAZ & $0.15$ & $0.36$ & $0.05$ & $0.81$ & $0.58$ & $0.08$ \\ 
+    Welt & $0.15$ & $0.35$ & $0.05$ & $0.81$ & $0.55$ & $0.07$ \\ 
+    Spiegel & $0.11$ & $0.39$ & $0.05$ & $0.89$ & $0.34$ & $0.07$ \\ 
+    TAZ & $0.13$ & $0.69$ & $0.04$ & $0.41$ & $0.32$ & $0.05$ \\ 
+    \hline \\[-1.8ex] 
+    \end{tabular} 
+  \caption{Mean similarity estimate to each party by newspaper.} 
+  \label{tbl:means} 
+\end{table}
 
-
-\paragraph{Comment on your quantitative results.} Are they what you expected? Better than you expected? Worse than you expected? Why do you think that is? What does this tell you about what you should do next? Including training curves might be useful to discuss whether things are training effectively.
-
-You don't need to report any qualitative results (`analysis') in the milestone, though you can if you like.
-
+Given that model 2 is the likely the worst performing, these are promising results. However, we need to look into the odd performance for the SPD.
 
 \section{Future work}
 
-Describe what you plan to do for the rest of the project, and why. You can include stretch goals if you like.
+\begin{itemize}
+    \item Collect politicians op-eds (\& interviews?).
+    \item Train model 1 and model 3 on the op-eds.
+    \item Assess performance for each of these models.
+\end{itemize}
 
 
 {\small
