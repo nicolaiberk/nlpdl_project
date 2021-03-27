@@ -23,11 +23,13 @@ for (i in 10:15){
   dta[i] <- dta[i] %>% lapply(plogis)
 }
 
+dta$source_f <- dta$source
+
 # visualise ####
 plot <- function(party, fillcol) {
   ggplot(dta) +
     geom_histogram(aes_string(x = party), fill = fillcol) +
-    facet_grid(~source) +
+    facet_grid(~source_f) +
     xlab(party) + 
     scale_x_continuous(limits = c(0,1),
                        breaks = c(0, 0.5))
@@ -42,6 +44,18 @@ linke  <- plot('linke', 'darkred')
 fdp    <- plot('fdp',   'yellow')
 
 grid.arrange(linke, greens, spd, union, fdp, afd,
-             ncol=1) %>% 
+             ncol=2) %>% 
   ggsave(filename = 'reports/midterm-report-latex/figures/preds.png', plot = ., 
-         width = 5, height = 10)
+         width = 15, height = 7.5)
+
+
+## table 
+means <- dta %>%             
+  group_by(source_f) %>%          
+  summarise_at(vars('linke', 'green', 'spd', 
+                    'union', 'fdp', 'afd'),
+               list(name = mean))
+
+means <- cbind(means[1], round(means[2:7], 2))
+
+stargazer::stargazer(means, summary = F)
