@@ -48,42 +48,42 @@ Nicolai Berk\\
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
-   Newspapers are one of the most important institutions in contemporary democracies. They have the power to affect voting behaviour, as well as polarise the electorate or motivate them to turn out to vote. Therefore, it is surprising that few papers deploy sate-of-the-art Deep Learning technologies to classify ideological bias in news articles. We apply a transformer neural network to classify party press releases by authorship. This model is then applied and optimised to estimate ideological bias in news articles. We fine-tune and validate the model using op-eds by politicians and compare pre-trained model to a BERT model that was not fine-tuned on party press releases. This approach provides a novel way to train powerful models on political language with scarce training data.
+   Newspapers are one of the most important institutions in contemporary democracies. They have the power to affect voting behaviour, as well as polarise the electorate or motivate them to turn out to vote. Therefore, it is surprising that few papers deploy sate-of-the-art Deep Learning technologies to classify ideological bias in news articles. We apply a transformer neural network to classify party press releases by authorship. This model is then applied and optimised to estimate ideological bias in news articles. We fine-tune and validate the model using op-eds by politicians and compare pre-trained model to a BERT model that was not fine-tuned on party press releases. This approach provides a novel way to train powerful models on political language with scarce training data.\footnote{GitHub repository: \url{https://github.com/nicolaiberk/nlpdl\_project}}
 \end{abstract}
 
 
 %%%%%%%%% BODY TEXT
 
-\begin{itemize}
-{\color{blue}
+% \begin{itemize}
+% {\color{blue}
 
-\item Remember that you should \textbf{submit the report}  via Moodle and \textbf{include in the report the link to accessible GitHub repository that contains the code}. Also, \textbf{only one member per team} needs to submit the project material. You must include a link to your GitHub repository for the project as the first footnote on the first page. \footnote{Here's a link to my GitHub account \url{https://github.com/sjankin} and Hannah's \url{https://github.com/hannahbechara}. Make sure that your repository is accessible to us!}
+% \item Remember that you should \textbf{submit the report}  via Moodle and \textbf{include in the report the link to accessible GitHub repository that contains the code}. Also, \textbf{only one member per team} needs to submit the project material. You must include a link to your GitHub repository for the project as the first footnote on the first page. 
 
-\item The midterm project report should be {\bf 4 pages long (not counting references), and a maximum 10 references}. The report should contain the sections that are already provided in this paper. It forms the basis of the final report with the same structure. Please check out the text in these sections for further information.
+% \item The midterm project report should be {\bf 4 pages long (not counting references), and a maximum 10 references}. The report should contain the sections that are already provided in this paper. It forms the basis of the final report with the same structure. Please check out the text in these sections for further information.
 
-\item Your midterm milestone will be graded on the following criteria:
-\begin{itemize}
-\item Progress: Has the team made good progress on the project? You should have done approximately half of the work of your project.
-\item As a minimum, your milestone should show that you have setup your data, baseline model code, and evaluation metric, and run experiments to obtain some results (assuming you are doing a typical model-building project). Other than this, `good progress' depends on various factors (e.g., whether your model is implemented from scratch or based on an existing codebase).
-\item Understanding: Does the milestone show a strong understanding of its problem, tasks, methods, metrics, and research context?
-\item Writing quality: Does the milestone clearly communicate what you've done and why, providing the requested information, to an appropriate level of detail (given the page limit)?
-\item You will receive some brief feedback on your milestone. Feedback may contain helpful suggestions for your project (e.g., try a particular method, read a particular paper) and/or warnings about your project plan (e.g., if your plans are too ambitious or not ambitious enough), and how you could improve your technical writing (e.g., adjustments to clarity, level of detail, formatting, use of references).
-\end{itemize}
+% \item Your midterm milestone will be graded on the following criteria:
+% \begin{itemize}
+% \item Progress: Has the team made good progress on the project? You should have done approximately half of the work of your project.
+% \item As a minimum, your milestone should show that you have setup your data, baseline model code, and evaluation metric, and run experiments to obtain some results (assuming you are doing a typical model-building project). Other than this, `good progress' depends on various factors (e.g., whether your model is implemented from scratch or based on an existing codebase).
+% \item Understanding: Does the milestone show a strong understanding of its problem, tasks, methods, metrics, and research context?
+% \item Writing quality: Does the milestone clearly communicate what you've done and why, providing the requested information, to an appropriate level of detail (given the page limit)?
+% \item You will receive some brief feedback on your milestone. Feedback may contain helpful suggestions for your project (e.g., try a particular method, read a particular paper) and/or warnings about your project plan (e.g., if your plans are too ambitious or not ambitious enough), and how you could improve your technical writing (e.g., adjustments to clarity, level of detail, formatting, use of references).
+% \end{itemize}
 
-\item Technical writing is an important skill in this class, in research, and beyond. It's well worth spending time developing your ability to communicate technical concepts clearly. Here are some resources which might help you improve your technical writing:
-\begin{itemize}
-\item Tips for Writing Technical Papers, Jennifer Widom (\url{https://cs.stanford.edu/people/widom/paper-writing.html}).
-\item Write the Paper First, Jason Eisner (\url{https://www.cs.jhu.edu/~jason/advice/write-the-paper-first.html}).
-\end{itemize}
+% \item Technical writing is an important skill in this class, in research, and beyond. It's well worth spending time developing your ability to communicate technical concepts clearly. Here are some resources which might help you improve your technical writing:
+% \begin{itemize}
+% \item Tips for Writing Technical Papers, Jennifer Widom (\url{https://cs.stanford.edu/people/widom/paper-writing.html}).
+% \item Write the Paper First, Jason Eisner (\url{https://www.cs.jhu.edu/~jason/advice/write-the-paper-first.html}).
+% \end{itemize}
 
-\item Here are some other things you can do to improve your technical writing:
-\begin{itemize}
-\item Look carefully at several ML / NLP papers to understand their typical structure, writing style, and the usual content of the different sections. Model your writing on these examples.
-\item Think about the NLP / ML papers you've read (for example, the one you summarised for your proposal). Which parts did you find easy to understand and why? Which parts did you find difficult to understand and why? Can you identify any good writing practices that you could use in your technical writing?
-\item Ask a friend to read through your writing and tell you if is clear. This can be useful even if the friend does not have the relevant technical knowledge.
-\end{itemize}
-}
-\end{itemize}
+% \item Here are some other things you can do to improve your technical writing:
+% \begin{itemize}
+% \item Look carefully at several ML / NLP papers to understand their typical structure, writing style, and the usual content of the different sections. Model your writing on these examples.
+% \item Think about the NLP / ML papers you've read (for example, the one you summarised for your proposal). Which parts did you find easy to understand and why? Which parts did you find difficult to understand and why? Can you identify any good writing practices that you could use in your technical writing?
+% \item Ask a friend to read through your writing and tell you if is clear. This can be useful even if the friend does not have the relevant technical knowledge.
+% \end{itemize}
+% }
+% \end{itemize}
 
 \section{Proposed Method}
 
@@ -97,37 +97,51 @@ Nicolai Berk\\
 
 % If you're using any code that you didn't write yourself, make it clear and provide a reference or link. When describing something you coded yourself, make it clear (so we can give you credit!).
 
-The measurement of ideology and political bias are the subject of much research on political text \cite{X,Y,Z}. However, researchers often find themselves facing a lack of appropriate training data. Manual annotation is usually costly and so it might be useful to infer ideology from other sources of text. We test this reasoning for the measurement of newspaper bias.
+The measurement of ideology and political bias are the subject of much research on political text \cite{X,Y,Z}. However, researchers often find themselves facing a lack of appropriate training data. Manual annotation is usually costly and so it might be useful to infer ideology from other sources of text.
 
+We test this reasoning for the measurement of newspaper bias. We measure newspaper bias as an articles similarity to a given parties' communication. Using pre-trained BERT neural network models for German language\footnote{[link to huggingface model]} (\cite{BERTPaper}), we compare how three different training processes affect model performance. We expect optimal performance from a transformer neural network fine-tuned in two steps: first, for classification of party press releases by authorship. This model is then applied and optimised to estimate ideological bias in news articles by fine-tuning and validating the model using op-eds by politicians. We compare this fine-tuned model to a BERT model that was not fine-tuned on party press releases and one that was not fine-tuned on newspaper data. This leaves us with three models:
+
+\begin{enumerate}
+    \item A model fine-tuned on a limited amount of newspaper articles authored by politicians.
+    \item A model fine-tuned on party press releases.
+    \item A model both fine-tuned on press releases and politicians' newspaper contributions.
+\end{enumerate}
+
+This way, we can assess how much model performance is improved when including information from both party press releases and newspaper data.
 
 \section{Experiments}
 
-This section contains the following.
+\paragraph{Data:} In this project, we draw on three data sources:
+\begin{itemize}
+    \item A dataset of over 40,000 German party press releases collected by the SCRIPTS project (\cite{}) for training.
+    \item A collection of over 2 million German newspaper articles collected by one of the authors in a previous project (\cite{}).
+    \item A collection of German newspaper articles authored by politicians collected as part of this project.
+\end{itemize}
 
-\paragraph{Data:}  Describe the dataset(s) you are using (provide references). If it's not already clear, make sure the associated task is clearly described.
+\paragraph{Evaluation method:} So far, we have successfully fine-tuned a BERT-model to classify party-press releases by authorship (model 2, serving as the basis for model 3). The performance of this model can be seen in \ref{fig:party}. As the reader can see, the model shows a near-perfect classification performance. This was rather surprising to the authors and shifted the initial focus of the project from improving the classification of party press releases to improving the performance on newspaper articles.
 
-\paragraph{Evaluation method:} Describe the evaluation metric(s) you used, plus any other details necessary to understand your evaluation.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{reports/midterm-report-latex/figures/party_class.png}
+    \caption{Performance of model 2 for the classification of party press releases.}
+    \label{fig:party}
+\end{figure}
+
+For the final assessment of classifier performance, we will predict the author's party of newspaper articles from politicians. This way, we can use the party labels from earlier fine-tuning exercises in the assessment of newspaper bias. As we aim for a balance of precision and recall, we will evaluate the models' F1-score. Additionally, we will assess generalisability by assessing the placement of newspapers - left-wing newspapers such as the TAZ should be placed closer to left-wing parties (Grüne, SPD, Linke) than right-wing newspapers (FAZ, WELT).
 
 \paragraph{Experimental details:} How you ran your experiments (e.g. model configurations, learning rate, training time, etc.)
 
-\paragraph{Results:} Report the quantitative results that you have found so far. Use a table or plot to compare multiple results and compare against baselines.
 
-Table \ref{tab:some-table} shows an example for formatting a table.
 
-\begin{table}
-\begin{center}
-\begin{tabular}{|l|c|}
-\hline
-Method & Accuracy \\
-\hline\hline
-Method 1 & $70 \pm 3$ \% \\
- Method 2 & $76 \pm 3$ \% \\
-\hline
-\end{tabular}
-\end{center}
-\label{tab:some-table}
-\caption{This is an example of a table.}
-\end{table}
+\paragraph{Results:} Applying model 2 (fine-tuned on party press releases) to newspaper articles 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{reports/midterm-report-latex/figures/preds.png}
+    \caption{Performance of model 2 for the classification of newspaper articles.}
+    \label{fig:party}
+\end{figure}
+
 
 
 \paragraph{Comment on your quantitative results.} Are they what you expected? Better than you expected? Worse than you expected? Why do you think that is? What does this tell you about what you should do next? Including training curves might be useful to discuss whether things are training effectively.
