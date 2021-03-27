@@ -30,16 +30,13 @@
 
 
 %%%%%%%%% TITLE
-\title{\LaTeX\ Template for NLP Midterm Project Report}
+\title{Midterm Project Report for Newspaper Bias project}
 
-\author{First Author\\
-{\tt\small firstauthor@hertie-school.org}
+\author{Tom Arend\\
+{\tt\small t.arend@phd.hertie-school.org}
 \and
-Second Author\\
-{\tt\small secondauthor@hertie-school.org}
-\and
-Third Author\\
-{\tt\small thirdauthor@hertie-school.org}
+Nicolai Berk\\
+{\tt\small nicolai.berk@gmail.com}
 }
 
 \maketitle
@@ -51,7 +48,7 @@ Third Author\\
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
-   An abstract should concisely (200-250 words) motivate the problem, describe your aims, describe your contribution, and highlight your main finding(s). Given that your project is still a work-in-progress, it's OK if `your contribution' and `your findings' are things you're still working on.
+   Newspapers are one of the most important institutions in contemporary democracies. They have the power to affect voting behaviour, as well as polarise the electorate or motivate them to turn out to vote. Therefore, it is surprising that few papers deploy sate-of-the-art Deep Learning technologies to classify ideological bias in news articles. We apply a transformer neural network to classify party press releases by authorship. This model is then applied and optimised to estimate ideological bias in news articles. We fine-tune and validate the model using op-eds by politicians and compare pre-trained model to a BERT model that was not fine-tuned on party press releases. This approach provides a novel way to train powerful models on political language with scarce training data.
 \end{abstract}
 
 
@@ -90,21 +87,17 @@ Third Author\\
 
 \section{Proposed Method}
 
-This section details your approach(es) to the problem. For example, this is where you describe the architecture of your model, and any other key methods or algorithms.
 
-You should be specific when describing your main approaches - you may want to include equations and figures (though it's fine if you want to defer creating time-consuming figures until you write your final report).
 
-This is an example of a mathematical equation:
+% This section details your approach(es) to the problem. For example, this is where you describe the architecture of your model, and any other key methods or algorithms.
 
-$$f(\mathbf{x}; \mathbf{w}) = \sum_{i=1}^{n} w_ix_i.$$
+% You should also describe your baseline(s). Depending on space constraints, and how standard your baseline is, you might do this in detail, or simply refer the reader to some other paper for the details. 
 
-This is a mathematical expression, $h(\mathbf{x}) = \hat{y}$ formatted in text. 
+% If any part of your approach is original, make it clear (so we can give you credit!). For models and techniques that aren't yours, provide references.
 
-You should also describe your baseline(s). Depending on space constraints, and how standard your baseline is, you might do this in detail, or simply refer the reader to some other paper for the details. 
+% If you're using any code that you didn't write yourself, make it clear and provide a reference or link. When describing something you coded yourself, make it clear (so we can give you credit!).
 
-If any part of your approach is original, make it clear (so we can give you credit!). For models and techniques that aren't yours, provide references.
-
-If you're using any code that you didn't write yourself, make it clear and provide a reference or link. When describing something you coded yourself, make it clear (so we can give you credit!).
+The measurement of ideology and political bias are the subject of much research on political text \cite{}. However, researchers often find themselves facing a lack of appropriate training data. Manual annotation is usually costly and 
 
 
 \section{Experiments}
