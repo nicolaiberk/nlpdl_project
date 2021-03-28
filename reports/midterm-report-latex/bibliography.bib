@@ -6,7 +6,56 @@
 
 %% Saved with string encoding Unicode (UTF-8) 
 
+@article{chatsiou_text_2020,
+	title = {Text {Classification} of {Manifestos} and {COVID}-19 {Press} {Briefings} using {BERT} and {Convolutional} {Neural} {Networks}},
+	url = {http://arxiv.org/abs/2010.10267},
+	abstract = {We build a sentence-level political discourse classifier using existing human expert annotated corpora of political manifestos from the Manifestos Project (Volkens et al., 2020a) and applying them to a corpus ofCOVID-19Press Briefings (Chatsiou, 2020). We use manually annotated political manifestos as training data to train a local topic ConvolutionalNeural Network (CNN) classifier; then apply it to the COVID-19PressBriefings Corpus to automatically classify sentences in the test corpus.We report on a series of experiments with CNN trained on top of pre-trained embeddings for sentence-level classification tasks. We show thatCNN combined with transformers like BERT outperforms CNN combined with other embeddings (Word2Vec, Glove, ELMo) and that it is possible to use a pre-trained classifier to conduct automatic classification on different political texts without additional training.},
+	urldate = {2021-03-28},
+	journal = {arXiv:2010.10267 [cs]},
+	author = {Chatsiou, Kakia},
+	month = nov,
+	year = {2020},
+	note = {arXiv: 2010.10267},
+	keywords = {Computer Science - Computation and Language, Computer Science - Machine Learning, 68T07, 91F10, J.4, J.5},
+	annote = {Comment: 12 pages, 1 figure, 4 tables},
+	file = {arXiv Fulltext PDF:https\://arxiv.org/pdf/2010.10267.pdf:application/pdf}
+}
 
+@InProceedings{Spinde2020,
+  author     = {Spinde, Timo and Hamborg, Felix and Gipp, Bela},
+  booktitle  = {{ECML} {PKDD} 2020 {Workshops}},
+  title      = {Media {Bias} in {German} {News} {Articles}: {A} {Combined} {Approach}},
+  doi        = {10.1007/978-3-030-65965-3_41},
+  editor     = {Koprinska, Irena and Kamp, Michael and Appice, Annalisa and Loglisci, Corrado and Antonie, Luiza and Zimmermann, Albrecht and Guidotti, Riccardo and Özgöbek, Özlem and Ribeiro, Rita P. and Gavaldà, Ricard and Gama, João and Adilova, Linara and Krishnamurthy, Yamuna and Ferreira, Pedro M. and Malerba, Donato and Medeiros, Ibéria and Ceci, Michelangelo and Manco, Giuseppe and Masciari, Elio and Ras, Zbigniew W. and Christen, Peter and Ntoutsi, Eirini and Schubert, Erich and Zimek, Arthur and Monreale, Anna and Biecek, Przemyslaw and Rinzivillo, Salvatore and Kille, Benjamin and Lommatzsch, Andreas and Gulla, Jon Atle},
+  isbn       = {9783030659653},
+  language   = {en},
+  pages      = {581--590},
+  publisher  = {Springer International Publishing},
+  series     = {Communications in {Computer} and {Information} {Science}},
+  abstract   = {Slanted news coverage, also called media bias, can heavily influence how news consumers interpret and react to the news. Models to identify and describe biases have been proposed across various scientific fields, focusing mostly on English media. In this paper, we propose a method for analyzing media bias in German media. We test different natural language processing techniques and combinations thereof. Specifically, we combine an IDF-based component, a specially created bias lexicon, and a linguistic lexicon. We also flexibly extend our lexica by the usage of word embeddings. We evaluate the system and methods in a survey (N = 46), comparing the bias words our system detected to human annotations. So far, the best component combination results in an F11\_\{1\} score of 0.31 of words that were identified as biased by our system and our study participants. The low performance shows that the analysis of media bias is still a difficult task, but using fewer resources, we achieved the same performance on the same task than recent research on English. We summarize the next steps in improving the resources and the overall results.},
+  address    = {Cham},
+  file       = {Springer Full Text PDF:https\://link.springer.com/content/pdf/10.1007%2F978-3-030-65965-3_41.pdf:application/pdf},
+  keywords   = {Media bias , News slant , News bias , Content analysis , Frame analysis },
+  shorttitle = {Media {Bias} in {German} {News} {Articles}},
+  year       = {2020},
+}
+
+@TechReport{Terechshenko2020,
+  author     = {Terechshenko, Zhanna and Linder, Fridolin and Padmakumar, Vishakh and Liu, Michael and Nagler, Jonathan and Tucker, Joshua A. and Bonneau, Richard},
+  title      = {A {Comparison} of {Methods} in {Political} {Science} {Text} {Classification}: {Transfer} {Learning} {Language} {Models} for {Politics}},
+  doi        = {10.2139/ssrn.3724644},
+  language   = {en},
+  number     = {ID 3724644},
+  type       = {{SSRN} {Scholarly} {Paper}},
+  url        = {https://papers.ssrn.com/abstract=3724644},
+  urldate    = {2021-03-28},
+  abstract   = {Automated text classification has rapidly become an important tool for political analysis.Recent advancements in NLP enabled by advances in deep learning now achieve state of the art results in many standard tasks for the field. However, these methods require large amounts of both computing power and text data to learn the characteristics of the language, resources which are not always accessible to political scientists. One solution is a transfer learning approach, where knowledge learned in one area or source task is transferred to another area or a target task. A class of models that embody this approach are language models, which demonstrate extremely high levels of performance. We investigate the performance of these models in the political science by comparing multiple text classification methods. We find RoBERTa and XLNet, language models that rely on theTransformer, require fewer computing resources and less training data to perform on par with – or outperform – several political science text classification methods. Moreover, we find that the increase in accuracy is especially significant in the case of small labeled data, highlighting the potential for reducing the data-labeling cost of supervised methods for political scientists via the use of pretrained language models.},
+  address    = {Rochester, NY},
+  keywords   = {text classification, transfer learning, language models, transformers},
+  month      = oct,
+  shorttitle = {A {Comparison} of {Methods} in {Political} {Science} {Text} {Classification}},
+  year       = {2020},
+}
 
 @article{kim_convolutional_2014,
 	Abstract = {We report on a series of experiments with convolutional neural networks (CNN) trained on top of pre-trained word vectors for sentence-level classification tasks. We show that a simple CNN with little hyperparameter tuning and static vectors achieves excellent results on multiple benchmarks. Learning task-specific vectors through fine-tuning offers further gains in performance. We additionally propose a simple modification to the architecture to allow for the use of both task-specific and static vectors. The CNN models discussed herein improve upon the state of the art on 4 out of 7 tasks, which include sentiment analysis and question classification.},

@@ -97,9 +97,15 @@ Nicolai Berk\\
 
 % If you're using any code that you didn't write yourself, make it clear and provide a reference or link. When describing something you coded yourself, make it clear (so we can give you credit!).
 
-The measurement of ideology and political bias are the subject of much research on political text \cite{X,Y,Z}. However, researchers often find themselves facing a lack of appropriate training data. Manual annotation is usually costly and so it might be useful to infer ideology from other sources of text.
+The measurement of ideology and political bias are the subject of much research on political texts \cite{Terechshenko2020, Bilbao-Jayo2018}. Despite significant advances in our understanding and detection of ideology, most researchers still face significant constraints when working with text. Notably, they face a lack of appropriately labeled training data. This is linked to the high costs incurred by manually annotating a significant number of speeches, texts, or sentences. It might therefore be useful to infer ideology from other sources of text , and using transfer learning, apply them to the desired text. 
 
-We test this reasoning for the measurement of newspaper bias. We measure newspaper bias as an articles similarity to a given parties' communication. Using pre-trained BERT neural network models for German language\footnote{[link to huggingface model]} (\cite{BERTPaper}), we compare how three different training processes affect model performance. We expect optimal performance from a transformer neural network fine-tuned in two steps: first, for classification of party press releases by authorship. This model is then applied and optimised to estimate ideological bias in news articles by fine-tuning and validating the model using op-eds by politicians. We compare this fine-tuned model to a BERT model that was not fine-tuned on party press releases and one that was not fine-tuned on newspaper data. This leaves us with three models:
+To the best of our knowledge, newer Sequence-to-sequence models have so far not been applied to the classification of newspaper biases. Beyond the implicit motivation inherent to such a research gap, we fundamentally believe that providing a state-of-the-art model to identify ideological biases in newspapers constitutes both, a contribution to the wider political science discipline, while at the same time offering real-world and practical applications. \\
+
+Newspapers are an important institution in the analysis of political phenomena, ranging from polarization to voter turnout. If the existing approaches to classify newspaper slant can be approved upon, or even just complemented, we could provide an additional tool for researchers to study the impact of newspaper slant. A working state-of-the-art model might even renew interest in the subject matter and encourage researchers to find new and exciting applications for it. \\
+
+Outside of academia, a confident and robust classifier of newspaper bias, might help readers identify when they are reading an article that is overly partisan. This would perhaps encourage them to approach certain news sources with more scepticism and hold news outlets to higher editorial standards. In the long run, the highlighting of biases in articles might counteract the worrying polarization of entire electorates. 
+
+We propose to identify newspaper slant by first pretraining a transformers model on party press releases before using transfer learning to apply that model to a range of newspaper articles. We measure newspaper bias as an article's similarity to a given party's communication. Using pre-trained BERT neural network models for German language\footnote{Link to the model page: \url{https://huggingface.co/bert-base-german-cased}} (\cite{BERTPaper}), we compare how three different training processes affect model performance. We expect optimal performance from a transformer neural network that was fine-tuned in two steps. First we use the pretrained model to classify party press releases by authorship \hl{(authorship being defined as the authors party affiliation)}. Secondly, the model is applied and optimised to estimate ideological bias in news articles by fine-tuning and validating the model using op-eds by politicians. We compare this fine-tuned model to a BERT model that was not fine-tuned on party press releases and one that was not fine-tuned on newspaper data. This leaves us with three models:
 
 \begin{enumerate}
     \item A model fine-tuned on a limited amount of newspaper articles authored by politicians.
@@ -111,14 +117,14 @@ This way, we can assess how much model performance is improved when including in
 
 \section{Experiments}
 
-\paragraph{Data:} In this project, we draw on three data sources:
+\paragraph{Data:} In this project, we draw on three distinct data sources:
 \begin{itemize}
     \item A dataset of over 40,000 German party press releases collected by the SCRIPTS project (\cite{}) for training.
     \item A collection of over 2 million German newspaper articles collected by one of the authors in a previous project (\cite{}).
     \item A collection of German newspaper articles authored by politicians collected as part of this project.
 \end{itemize}
 
-\paragraph{Evaluation method:} So far, we have successfully fine-tuned a BERT-model to classify party-press releases by authorship (model 2, serving as the basis for model 3). The performance of this model can be seen in \ref{fig:party}. As the reader can see, the model shows a near-perfect classification performance. This was rather surprising to the authors and shifted the initial focus of the project from improving the classification of party press releases to improving the performance on newspaper articles.
+\paragraph{Evaluation method:} So far, we have successfully fine-tuned a BERT-model to classify party-press releases by authorship (model 2, serving as the basis for model 3). The performance of this model can be seen in \ref{fig:party}. As the reader can see, the model shows a near-perfect classification performance. This was rather surprising to the authors and shifted the initial focus of the project from improving the classification of party press releases to the application of transfer learning to classify media bias/slant in newspaper articles. Thus, the improvement of the newspaper classification will be our main focus going forward.
 
 \begin{figure}
     \centering
@@ -131,7 +137,7 @@ For the final assessment of classifier performance, we will predict the author's
 
 \paragraph{Experimental details:} How you ran your experiments (e.g. model configurations, learning rate, training time, etc.)
 
-
+\paragraph{Model Details:} \hl{Rather than speak about the }
 
 \paragraph{Results:} We classified a training set of 4,000 newspaper articles using model 2 (fine-tuned on party press releases). We expected articles from conservative newspapers FAZ and Welt to be more similar to Union and FDP and possibly the AfD, especially compared to the progressive TAZ. Spiegel Online (SPON) is expected to be equally similar to right- and leftwing newspapers.
 
