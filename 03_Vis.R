@@ -58,4 +58,4 @@ means <- dta %>%
 
 means <- cbind(means[1], round(means[2:7], 2))
 
-stargazer::stargazer(means, summary = F)
+stargazer::stargazer(means, summary = F, type = 'text')
