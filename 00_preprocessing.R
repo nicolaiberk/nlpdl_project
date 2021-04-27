@@ -23,9 +23,9 @@ dta <- fread('_dt/germanyPPRs.csv', encoding = 'UTF-8')
 
 ## filter by date & remove non-essential vars
 dta <- dta %>% 
-  filter(2013 >= year & (year <= 2017)) %>% 
-  select(rawtext, label)
-colnames(dta) <- c('text', 'label')
+  filter(2013 >= year) %>% 
+  select(rawtext, label, date)
+colnames(dta) <- c('text', 'label', 'date')
 
 
 ## replace mis-coded characters (this is not working)
@@ -103,8 +103,8 @@ dta$text_clean <- dta$text_clean %>% gsub(pattern = 'Alternative für Deutschlan
 dta$text_clean <- gsub(dta$text_clean, pattern = '\\s\\s|\\t', replacement = ' ')
 
 ## drop original text
-dta <- dta[,c("text_clean", "label")]
-colnames(dta) <- c("text", "label")
+dta <- dta[,c("text_clean", "label", "date")]
+colnames(dta) <- c("text", "label", "date")
 
 # save ####
 fwrite(dta, file = "_dt/PPRs_cleaned.csv")
