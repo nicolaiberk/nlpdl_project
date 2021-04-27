@@ -23,7 +23,7 @@ dta <- fread('_dt/germanyPPRs.csv', encoding = 'UTF-8')
 
 ## filter by date & remove non-essential vars
 dta <- dta %>% 
-  filter(2013 >= year) %>% 
+  filter(year >= 2013) %>% 
   select(rawtext, label, date)
 colnames(dta) <- c('text', 'label', 'date')
 
