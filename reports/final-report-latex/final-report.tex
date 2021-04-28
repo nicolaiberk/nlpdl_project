@@ -120,47 +120,171 @@ We believe both approaches are likely inferior to more complex deep learning mod
 
 % \end{itemize}
 
+We propose the use of transfer learning to identify newspaper slant: a pre-trained transformers model is fine-tuned to identify the authoring party of press releases. Then, this model is applied to a range of newspaper articles, indicating which parties' communication an article most resembles. This approach is useful, as political parties represent the major organisers of and reference points for political ideology. More importantly, party-issued political texts constitute data that already carry ideological labels and need no further labour for annotation. It therefor represents an efficient and broadly available source of data for transfer learning to identify ideological bias in newspaper articles. 'Bias' is here defined as the similarity of a set of text to a given party's communication. This is a reasonable definition, as political parties constitute the major points of reference and organizers of ideology in contemporary democracies. 
+
+In detail, we employ pre-trained BERT neural network models for German language\footnote{Link to the model page: \url{https://huggingface.co/transformers/model_doc/distilbert.html}} and compare how three different training processes affect model performance. We expect optimal performance from a transformer neural network that was fine-tuned in two steps. First we use the pre-trained model to classify party press releases by issuing party. Secondly, the model is applied in its actual domain to estimate ideological bias in news articles. We fine-tune and subsequently validate the model using op-eds by politicians. These unique data have the advantage of carrying party labels, allowing a direct transfer of the categories from the initial fine-tuning process (first step) to the outcome of interest. We compare this fine-tuned model to a BERT model that was not fine-tuned on party press releases and one that was not fine-tuned on newspaper data. This leaves us with three models:
+
+\begin{enumerate}
+    \item A model only fine-tuned on newspaper articles authored by politicians.
+    \item A model only fine-tuned on party press releases.
+    \item A model both fine-tuned on press releases and politicians' newspaper contributions.
+\end{enumerate}
+
+This approach  assess by how much model performance is improved upon, when including information from both party press releases and newspaper data. This is especially useful as it allows us to comparatively assess the performance of a model that has never seen data from the domain of interest (model 2). If this model performs well, this constitutes strong evidence that party communication can be used to train classifiers which are applied in a diverse set of domains with scarce or no training data. If model 3 severely outperformed model 1, this would corroborate the idea that information from available sets of texts from political actors can be used to improve ideology measurements for other sets of text.  \\
+
+\textbf{[ADD DISCUSSION OF CHANGES IN RESPONSE TO MIDTERM FEEDBACK]}\\
+
+\textbf{[ADD DISCUSSION OF BERT; BERT OPTIMISATION \& LSTM]}
 
 \section{Experiments}
 
-This section contains the following.
+% This section contains the following.
 
-\paragraph{Data:}  Describe the dataset(s) you are using (provide references). If it's not already clear, make sure the associated task is clearly described.
+\paragraph{Data:} In this project, we planned to use four distinct data sources:\\
+\begin{itemize}
+    \item A dataset of over 40,000 German party press releases issued between 2010 and 2019, collected by the SCRIPTS project\footnote{\url{https://www.scripts-berlin.eu/index.html}. Special thanks go to Lukas Stötzer for the effortless (for us) provision of the data.}.
+    \item A collection of over 2 million German newspaper articles from six major newspapers, published between 2013 and 2019, collected by one of the authors in a previous project (\cite{Krause2021}).
+    \item A set of German newspaper articles authored by politicians collected as part of this project.
+    \item A survey of newspaper readers asking them about the partisan bias of their newspaper, to generate a first indication of the expected results (\textbf{CITE GLES}).
+\end{itemize}
+% Describe the dataset(s) you are using (provide references). If it's not already clear, make sure the associated task is clearly described.
 
-\paragraph{Software}: Briefly list (and cite) software software you used.
 
-\paragraph{Hardware}: If relevant, list hardware resources you used.
+\paragraph{Software}: All software for this project was self-written. However, we relied on the programming languages R and Python \textbf{[INSERT REFERENCES]}, as well as corresponding packages, most importantly Huggingface's \texttt{transfomers} package and \texttt{pytorch} for the training of our models.
+
+% Briefly list (and cite) software software you used.
+
+% \paragraph{Hardware}: If relevant, list hardware resources you used.
 
 \paragraph{Evaluation method:} Describe the evaluation metric(s) you used, plus any other details necessary to understand your evaluation.
 
-\paragraph{Experimental details:} How you ran your experiments (e.g. model configurations, learning rate, training time, etc.)
+\textbf{[DESCRIBE PROCESS OF EVALUATION SINCE MIDTERM; AS WELL AS SURVEYDATA]}
 
-\paragraph{Results:} Report the quantitative results that you have found so far. Use a table or plot to compare multiple results and compare against baselines.
+\paragraph{Experimental details:}
 
-\paragraph{Comment on your quantitative results.} Are they what you expected? Better than you expected? Worse than you expected? Why do you think that is? What does this tell you about what you should do next? Including training curves might be useful to discuss whether things are training effectively.
+In total, we train three different models on three different forms of input data. We use the 'distilbert-base-german-cased' model from the Huggingface transformer library\footnote{\url{https://huggingface.co/bert-base-german-cased}.} as a baseline. This deep-learning model has been trained to efficiently solve different classification tasks on 12 GB of German language data, including Wikipedia, legal data, and news. We decided on three training epochs, a training batch size of 16, and a weight decay of $0.01$ for regularisation. This might change in the future, depending on the model's performance on the newspaper articles. The configuration of our hyper-parameters hence largely follows the defaults and is as follows\footnote{The model's default settings can be found here: \url{https://huggingface.co/distilbert-base-german-cased/blob/main/config.json}.}:
+
+\begin{itemize}
+    \item Training epochs: $3$
+    \item Training batch size: $16$
+    \item We apply a weight decay as a form of regularisation: $0.01$
+    \item Maximum sequence length (longer articles were truncated): $512$
+    \item Dropout for each layer: $10\%$
+\end{itemize}
+
+\textbf{[OPTIMISED BERT]}
+
+\textbf{[LSTM]}
+
+
+\textbf{[DESCRIBE OPTIMISED BERT; LSTM]}
+% How you ran your experiments (e.g. model configurations, learning rate, training time, etc.)
+
+
+\paragraph{Results:}We classified a training set of 4,000 newspaper articles using model 2 (fine-tuned on party press releases). We expected articles from conservative newspapers FAZ and Welt to be more similar to Union and FDP and possibly the AfD, especially compared to the progressive TAZ. Spiegel Online (SPON) is expected to be equally similar to right- and leftwing newspapers.\\
+
+The results can be seen in table \ref{tbl:means}, which shows the average probability for an article to be classified as being authored by a given party. As expected, FAZ and Welt are very similar to Union (81\%) and FDP (58\%/55\%), but also rather similar to the Greens (36\%/35\%). While they show the highest similarity to the AfD (8\%/7\%), similarity to the radical-right party is generally on a very low level among all newspapers. Spiegel Online (SPON) shows lower similarity to the FDP and closer to Union and Greens, but is generally rather similar to the right-wing newspapers. As expected, the TAZ shows a comparatively different profile, being very similar to the Greens (average likelihood 70\%), and less similar to the Union parties (41\%), the FDP (32\%), and the AfD (5\%). Surprisingly, it also shows the lowest similarity to the Linke (13\%). Maybe most surprising is the general low similarity to SPD press releases (4\%/5\%). It seems the party has a rather distinctive style in its press releases.\\
+
+\begin{table}[!htbp] \centering 
+    \begin{tabular}{@{\extracolsep{1pt}} lcccccc}
+    \\[-1.8ex]\hline 
+    \hline \\[-1.8ex] 
+    Paper & Linke & Grüne & SPD & Union & FDP & AfD \\ 
+    \hline \\[-1.8ex] 
+    FAZ & $0.15$ & $0.36$ & $0.05$ & $0.81$ & $0.58$ & $0.08$ \\ 
+    Welt & $0.15$ & $0.35$ & $0.05$ & $0.81$ & $0.55$ & $0.07$ \\ 
+    Spiegel & $0.11$ & $0.39$ & $0.05$ & $0.89$ & $0.34$ & $0.07$ \\ 
+    TAZ & $0.13$ & $0.69$ & $0.04$ & $0.41$ & $0.32$ & $0.05$ \\ 
+    \hline \\[-1.8ex] 
+    \end{tabular} 
+  \caption{Mean similarity estimate to each party by newspaper, based on training data including party labels and large time frame.} 
+  \label{tbl:means} 
+\end{table}
+
+We restricted the time-frame of the training time, which severely affected our results: 
+
+\begin{table}[!htbp] \centering 
+  \caption{Placement of newspapers with date-restricted, labelled training data.} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & source\_f & linke\_name & green\_name & spd\_name & union\_name & fdp\_name & afd\_name \\ 
+\hline \\[-1.8ex] 
+1 & faz & $0.200$ & $0.200$ & $0.260$ & $0.190$ & $0.850$ & $0.400$ \\ 
+2 & spon & $0.130$ & $0.170$ & $0.230$ & $0.070$ & $0.940$ & $0.160$ \\ 
+3 & taz & $0.220$ & $0.110$ & $0.670$ & $0.200$ & $0.490$ & $0.290$ \\ 
+4 & welt & $0.200$ & $0.150$ & $0.260$ & $0.240$ & $0.840$ & $0.370$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+\textbf{[ADD OUT-OF SAMPLE AND CLEAN PERFORMANCE]}
+
+\textbf{[COMPARE TO LSTM, OPTIMISED BERT}
+% Report the quantitative results that you have found so far. Use a table or plot to compare multiple results and compare against baselines.
+
+\paragraph{Comment on your quantitative results.} \textbf{[WHAT DOES THIS MEAN? IS THERE A MODEL THAT IS CONVINCING? WHAT IS GOING ON? - LETS DISCUSS THIS ONCE THE LSTM AND OPTIMISED BERT RESULTS ARE IN]}
+% Are they what you expected? Better than you expected? Worse than you expected? Why do you think that is? What does this tell you about what you should do next? Including training curves might be useful to discuss whether things are training effectively.
 
 \section{*Analysis}
 
-Your report should include some qualitative evaluation. That is, try to understand your system (how it works, when it succeeds and when it fails) by measuring or inspecting key characteristics or outputs of your model.
-\begin{itemize}
-\item Types of qualitative evaluation include: commenting on selected examples, error analysis, measuring the performance metric for certain subsets of the data, ablation studies, comparing the behaviors of two systems beyond just the performance metric, and visualizing attention distributions or other activation heatmaps.
+% Your report should include some qualitative evaluation. That is, try to understand your system (how it works, when it succeeds and when it fails) by measuring or inspecting key characteristics or outputs of your model.
 
-\item The Practical Tips lecture notes has a detailed section on qualitative evaluation -- you may find it useful to reread it.
-\end{itemize}
+% \begin{itemize}
+% \item Types of qualitative evaluation include: commenting on selected examples, error analysis, measuring the performance metric for certain subsets of the data, ablation studies, comparing the behaviors of two systems beyond just the performance metric, and visualizing attention distributions or other activation heatmaps.
+
+% \item The Practical Tips lecture notes has a detailed section on qualitative evaluation -- you may find it useful to reread it.
+% \end{itemize}
+
+\textbf{[DESCRIBE ESTIMATES COMPARED TO SURVEY DATA]}
+
+\textbf{[DESCRIBE CHANGES IN NEWSPAPER PLACEMENT]}
+
+
+
+\begin{table}[!htbp] \centering 
+  \caption{Placement of newspapers with removed party labels.} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+source & linke & green & spd & union & fdp & afd \\ 
+\hline \\[-1.8ex] 
+faz & $0.150$ & $0.360$ & $0.050$ & $0.810$ & $0.580$ & $0.080$ \\ 
+spon & $0.110$ & $0.390$ & $0.050$ & $0.890$ & $0.340$ & $0.070$ \\ 
+taz & $0.130$ & $0.690$ & $0.040$ & $0.410$ & $0.320$ & $0.050$ \\ 
+welt & $0.150$ & $0.350$ & $0.050$ & $0.810$ & $0.550$ & $0.070$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+\textbf{[DESCRIBE HOW MODELS PERFORM IN OUT-OF-DATA-SAMPLE AND PARTY LABEL REMOVAL]}
+
+\textbf{[DESCRIBE CHANGES IN NEWSPAPER PLACEMENT AND WHETHER VALID]}
+
+\textbf{[DISCUSS WHETHER IMPROVED MODELS ARE EXPECTED TO SOLVE THIS PROBLEM]}
+
 
 \section{*Conclusions}
-Summarize the main findings of your project, and what you have learnt. Highlight your achievements, and note the primary limitations of your work. If you like, you can describe avenues for future work.
+% Summarize the main findings of your project, and what you have learnt. Highlight your achievements, and note the primary limitations of your work. If you like, you can describe avenues for future work.
 
 \section{Acknowledgements}
 
-List acknowledgements if any. For example, if someone provided you a dataset, or you used someone else's resources, this is a good place to acknowledge the help or support you received.
+We thank the vast community contributing to the development of machine learning tools, specifically huggingface. Additionally, we want to thank LUkas Stötzer for provision of the training data and Hauke Licht for providing us with a first notebook.
+
+% List acknowledgements if any. For example, if someone provided you a dataset, or you used someone else's resources, this is a good place to acknowledge the help or support you received.
 
 \section{Contributions}
 
 Describe the contributions of each team member who worked on this project. You should write a brief summary of what each team member did for the project (about 1 or 2 sentences per person). We will read these descriptions and cross-reference with GitHub contributions in your project repository. For almost all teams, it will have no effect (team members all receive same grade), but for teams with very unequal contribution, we may investigate and/or give different grades to team members.
 
 \section{References}
-Your references section should be produced using BibTeX.
+% Your references section should be produced using BibTeX.
+{\small
+\bibliographystyle{ieee}
+\bibliography{bibliography.bib}
+}
 
 \section{*Appendix}
 If you wish, you can include an appendix, which should be part of the main PDF, and does not count towards the 8 page limit. Appendices can be useful to supply extra details, examples, figures, results, visualizations, etc., that you couldn't fit into the main paper. However, your grader does not have to read your appendix, and you should assume that you will be graded based on the content of the main part of your paper only.
