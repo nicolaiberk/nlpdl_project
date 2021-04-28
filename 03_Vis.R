@@ -16,7 +16,7 @@ library(data.table)
 library(gridExtra)
 
 # prepare data ####
-dta <- read.csv('_dt/subset_news_pred.csv')
+dta <- read.csv('_dt/subset_news_pred_nolabels.csv')
 
 ## turn logit into probability
 for (i in 10:15){
@@ -45,7 +45,7 @@ fdp    <- plot('fdp',   'yellow')
 
 grid.arrange(linke, greens, spd, union, fdp, afd,
              ncol=2) %>% 
-  ggsave(filename = 'reports/midterm-report-latex/figures/preds.png', plot = ., 
+  ggsave(filename = 'reports/final-report-latex/figures/preds_nolabels.png', plot = ., 
          width = 15, height = 7.5)
 
 
@@ -58,4 +58,4 @@ means <- dta %>%
 
 means <- cbind(means[1], round(means[2:7], 2))
 
-stargazer::stargazer(means, summary = F, type = 'text')
+stargazer::stargazer(means, summary = F, type = 'latex')
