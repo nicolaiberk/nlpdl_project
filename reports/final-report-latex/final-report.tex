@@ -32,28 +32,23 @@
 %%%%%%%%% TITLE
 \title{\LaTeX\ Template for NLP Final Project Report}
 
-\author{First Author\\
-{\tt\small firstauthor@hertie-school.org}
+\author{Tom Arend\\
+{\tt\small t.arend@phd.hertie-school.org}
 \and
-Second Author\\
-{\tt\small secondauthor@hertie-school.org}
-\and
-Third Author\\
-{\tt\small thirdauthor@hertie-school.org}
+Nicolai Berk\\
+{\tt\small nicolai.berk@gmail.com}
 }
 
 \maketitle
 %\thispagestyle{empty}
 
 
-
 % MAIN ARTICLE GOES BELOW
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 %%%%%%%%% ABSTRACT
 \begin{abstract}
- An abstract should concisely (less than 300 words) motivate the problem, describe your aims, describe your contribution, and highlight your main finding(s). 
+   The measurement of ideology is one of the major applications of text analysis in political science. However, researchers often face scarcity of available labelled data to train supervised models for their specific domain. Manual annotation is costly and often severely affected by subjective bias. We propose to fine-tune transformer models on available, labelled political texts issued by political parties to obtain a classifier of political ideology. Using a unique dataset of newspaper articles authored by politicians, we test such an application in the German context. Comparing transformer neural networks fine-tuned on a set of party press releases, a set of newspaper articles, or both, we present evidence on the feasibility of such an approach. This contributes to the broad literature on text analysis in the political domain, enabling researchers to train powerful deep learning models on political language with scarce training data. Additionally, we contribute a state-of-the-art deep learning model for the measurement of ideological bias in news articles. This is a crucial issue in the debates surrounding media effects on polarisation, turnout, and voting behaviour.\footnote{GitHub repository: \url{https://github.com/nicolaiberk/nlpdl\_project}}
 \end{abstract}
 
 
@@ -80,32 +75,50 @@ Third Author\\
 %%%%%%%%% BODY TEXT
 \section{*Introduction}
 
-The introduction explains the problem, why it's difficult, interesting, or important, how and why current methods succeed/fail at the problem, and explains the key ideas of your approach and results. Though an introduction covers similar material as an abstract, the introduction gives more space for motivation, detail, references to existing work, and to capture the reader's interest.
+% The introduction explains the problem, why it's difficult, interesting, or important, how and why current methods succeed/fail at the problem, and explains the key ideas of your approach and results. Though an introduction covers similar material as an abstract, the introduction gives more space for motivation, detail, references to existing work, and to capture the reader's interest.
 
-\section{*Related Work}
+The measurement of ideology and political bias\footnote{'Political bias', 'ideological slant' and variations of the two are used interchangeably in this report.} are the subject of much research on political texts \cite{Bilbao-Jayo2018, Laver2003, Simoes2020}. Despite significant advances in our understanding and detection of ideology, most researchers still face significant constraints when working with text. Notably, they face a lack of appropriately labelled training data. This is linked to the high costs incurred by manually annotating a significant number of speeches, texts, or sentences. Often, the detection of ideological bias might be highly dependent on the coders' subjective assessment. Instead, researchers could train models on other sources of text with clear and available labels and subsequently apply them to the desired texts using transfer learning.
 
-This section helps the reader understand the research context of your work, by providing an overview of existing work in the area.
+We conduct experiments with differently fine-tuned deep learning models to understand if and how transfer learning can be used to measure bias in the absence of abundant training data. To test this, we fine-tune a deep neural network to predict the authoring political party of German press releases. Once the model is fine-tuned to predict the authoring party of press releases, it is applied to estimate the bias of newspaper. In addition, we compare this approach to models that are (additionally) fine-tuned in the domain of newspaper articles to assess the effectiveness of this alternative fine-tuning process. While the application of transformers to measure bias is not entirely new in political science \cite{Terechshenko2020, Vig2020}, we move beyond the current state-of-the-art by measuring the precise implications of different fine-tuning procedures. 
 
-\begin{itemize}
+Beyond testing the effectiveness of this two-step fine-tuning process, this project will develop a state-of-the-art deep learning model for the measurement of political bias in newspaper articles.  Newspapers represent an important institution in the political world, affecting phenomena ranging from polarization to voter turnout. Much like the shadows in Plato's allegory of the cave, news provide elites and citizens with a representation of a reality they are not able to see themselves \cite{Plato520a}. The media have the power to affect voting behaviour \cite{Chiang2011, Ladd2009}, as well as polarise the electorate \cite{Lelkes2017} or motivate them to turn out to vote \cite{Gentzkow2010}. 
 
-\item You might discuss: papers that inspired your approach, papers that you use as baselines, papers proposing alternative approaches to the problem, papers applying your methods to different tasks, etc.
+Given this importance of the news media for the study of politics, it is surprising that few papers deploy state-of-the-art deep learning technologies to classify ideological bias in news articles. Gentzkow and Shapiro estimate slant in US newspapers by identifying bi- and trigrams' indicative of a congressional speakers' party, and apply the resulting dictionary to newspapers to scale them \cite{Gentzkow2010}. More recently, Widmer et al. have assessed polarisation in the US media environment using a supervised model. They train a classifier on bigrams, predicting whether content was produced by a left-leaning network (CNN) or a right-leaning network (Fox news) \cite{Widmer2020}. We believe both approaches are likely inferior to more complex deep learning models, as such novel approach would not incorporate idiosyncratic phrases used by the specific networks identified to train the data. Using party labels to train classifiers is more straightforward, as it places newspapers within the existing context. If existing approaches to classify newspaper slant can be improved upon, or even just complemented, we could provide an additional tool for researchers to study drivers and effects of media bias. A working state-of-the-art model might even renew interest in the subject matter and encourage researchers to find new and exciting applications for it. 
 
-\item This section shouldn't go into deep detail in any one paper (for example, there probably shouldn't be any equations) -- instead it should explain how the papers relate to each other, and how they relate to your work.
+Outside of academia, a confident and robust classifier of newspaper bias might help readers to identify when they are reading an article that is overly partisan. This would perhaps encourage them to approach certain news sources with more scepticism and hold news outlets to higher editorial standards. In the long run, the highlighting of biases in articles might counteract the worrying polarization of entire electorates. \\
 
-\end{itemize}
+\section*{Related Work}
 
-\section{Proposed Method}
+% This section helps the reader understand the research context of your work, by providing an overview of existing work in the area.
 
-This section details your approach(es) to the problem. For example, this is where you describe the architecture of your model, and any other key methods or algorithms.
+% \begin{itemize}
 
-\begin{itemize}
+% \item You might discuss: papers that inspired your approach, papers that you use as baselines, papers proposing alternative approaches to the problem, papers applying your methods to different tasks, etc.
 
-\item You should be specific when describing your main approaches -- you probably want to include equations and figures.
-\item You should also describe your baseline(s). Depending on space constraints, and how standard your baseline is, you might do this in detail, or simply refer the reader to some other paper for the details. 
-\item If any part of your approach is original, make it clear (so we can give you credit!). For models and techniques that aren't yours, provide references.
-\item If you're using any code that you didn't write yourself, make it clear and provide a reference or link. When describing something you coded yourself, make it clear (so we can give you credit!).
+% \item This section shouldn't go into deep detail in any one paper (for example, there probably shouldn't be any equations) -- instead it should explain how the papers relate to each other, and how they relate to your work.
 
-\end{itemize}
+% \end{itemize}
+
+Measuring ideology is the prime use-case of automated text analysis in political science. While some work has used supervised learning to understand political polarisation \cite{Ash2017} as well as media slant \cite{Widmer2020}, this existing work estimates the polarisation of political actors or newspapers across time, or simply the similarity of one news source to others. Existing models have for the most part relied on bag-of-words approaches, including the scaling of texts using supervised \cite{Laver2003} or unsupervised models \cite{Slapin2008}. Unsurprisingly, the performance of these models has so far proven unreliable, lagging behind the accuracy of human coders or expert judgement \cite{Brauninger2013, Hjorth2015, Koljonen2020}. Recent applications have assessed the ability of deep learning models to replicate human coding of party manifestos \cite{Bilbao-Jayo2018} or estimate ideology directly using supervised classification \cite{Simoes2020}. These applications employ RNNs or CNNs. We feel they could be improved upon with state-of-the-art transformer neural networks.\\
+
+Much less work has been devoted to the measurement of the ideological leaning of newspapers. While some work has assessed the impact of endorsements of specific candidates \cite{Chiang2011, Ladd2009}, there have been few attempts to scale newspapers on ideology. Gentzkow and Shapiro estimate slant in US newspapers by identifying bi- and trigrams' indicative of a congressional speakers' party, and apply the resulting dictionary to newspapers to scale them \cite{Gentzkow2010}. More recently, Widmer et al. have assessed polarisation in the US media environment using a supervised model. They train a classifier on bigrams, predicting whether content was produced by a left-leaning network (CNN) or a right-leaning network (Fox news) \cite{Widmer2020}. \\
+
+We believe both approaches are likely inferior to more complex deep learning models, as such novel approach would not incorporate idiosyncratic phrases used by the specific networks identified to train the data. Using party labels to train classifiers is more straightforward, as it places newspapers within the existing context. However, any algorithm trained on a different dataset than applied to must be subject to careful validation.\\
+
+\textbf{[ADD ASH ET AL PAPER ON TRANSFER LEARNING]}
+
+\section*{Proposed Method}
+
+% This section details your approach(es) to the problem. For example, this is where you describe the architecture of your model, and any other key methods or algorithms.
+
+% \begin{itemize}
+
+% \item You should be specific when describing your main approaches -- you probably want to include equations and figures.
+% \item You should also describe your baseline(s). Depending on space constraints, and how standard your baseline is, you might do this in detail, or simply refer the reader to some other paper for the details. 
+% \item If any part of your approach is original, make it clear (so we can give you credit!). For models and techniques that aren't yours, provide references.
+% \item If you're using any code that you didn't write yourself, make it clear and provide a reference or link. When describing something you coded yourself, make it clear (so we can give you credit!).
+
+% \end{itemize}
 
 
 \section{Experiments}
