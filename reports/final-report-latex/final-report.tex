@@ -156,44 +156,17 @@ This approach allows to assess by how much model performance is improved upon, w
 
 % \paragraph{Hardware}: If relevant, list hardware resources you used.
 
-\paragraph{Evaluation method:}  We have successfully fine-tuned a BERT-model to classify party-press releases by authorship. The performance of this model is shown in table \ref{fig:perf_init}. As the reader can see, the model performs at a very high, near-perfect level for all categories. The impressive performance of this model on the press releases was rather surprising to the authors. We took further steps to estimate the model performance by changing the input data in two distinct ways and assessing its impact on the performance. \\
+\paragraph{Experimental details:\\}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{reports/midterm-report-latex/figures/party_class.png}
-    \caption{Performance of default BERT model for the classification of party press releases.}
-    \label{fig:perf_init}
-\end{figure}
+\textit{Study 1:} We train a BERT model to identify authorship of party press releases. Given that the initial performance is very high, we 'blindfold' the model, removing party labels from the input data. This should help us to understand whether the classifier is able to distinguish press releases based on partisan rhetoric alone. Additionally, we predict a dataset of press releases following temporally on the training set. Any overfitting in our data should result in weak performance in the test set.
 
-Firstly, we 'blindfolded' our model in that we excluded party labels and any words referring to the parties (such as colors) from the analysis (the full list of terms excluded can be found in Appendix A). If the model performs high still, it should indeed pick up distinct rhetorical styles of the parties. Secondly, we conducted a train-test split based on the date of the press release. That is, the test set consists of press releases from a period following the period of the training sample. If the model is overfitting in the training process, this should result in severely worse performance in the out-of sample set. 
+\textit{Study 2:} We use the models trained in study 1 to estimate the ideological bias in 4,000 newspaper articles from German newspapers FAZ, Spiegel Online, TAZ, and Welt. We compare the different models' output with survey data on the partisan slant by newspaper readers and assess the stability of the results.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{reports/final-report-latex/figures/blindfolded_insample.png}
-    \caption{Performance of default BERT model for the classification of party press releases based on the \textbf{censored in-sample} data.}
-    \label{fig:perf_in}
-\end{figure}
-
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{reports/final-report-latex/figures/blindfolded_outsample.png}
-    \caption{Performance of default BERT model for the classification of party press releases based on the \textbf{censored out-of-sample} data.}
-    \label{fig:perf_out}
-\end{figure}
-
-
-\textbf{[ADD DISCUSSION OF CHANGES IN RESPONSE TO MIDTERM FEEDBACK]}\\
-
-\textbf{[ADD DISCUSSION OF BERT; BERT OPTIMISATION \& LSTM]}
+\textbf{[ADD OPTIMIZED AND LSTM]}
 
 % For the final assessment of classifier performance, we will use a unique, newly collected set of politicians' op-eds and interviews. This data enables us to compare the impact of different fine-tuning processes (using party press releases, newspaper articles, or both) on model performance, as the outcome categories (authorship party) are identical. We aim for a balance of precision and recall, and will therefore evaluate the models' F1-scores. Additionally, we will assess generalisability by assessing the placement of newspapers based on estimates for all news articles. Left-wing newspapers such as the TAZ should be placed closer to left-wing parties (Grüne, SPD, Linke) than right-wing newspapers (FAZ, WELT).
 
-\textbf{[DESCRIBE HOW MODELS PERFORM IN OUT-OF-DATA-SAMPLE AND PARTY LABEL REMOVAL]}
 
-
-\textbf{[DESCRIBE PROCESS OF EVALUATION SINCE MIDTERM; AS WELL AS SURVEYDATA]}
 
 \paragraph{Experimental details:}In total, we train three different models on three different forms of input data. We use the 'distilbert-base-german-cased' model from the Huggingface transformer library\footnote{\url{https://huggingface.co/bert-base-german-cased}.} as a baseline. This deep-learning model has been trained to efficiently solve different classification tasks on 12 GB of German language data, including Wikipedia, legal data, and news. We decided on three training epochs, a training batch size of 16, and a weight decay of $0.01$ for regularisation. This might change in the future, depending on the model's performance on the newspaper articles. The configuration of our hyper-parameters hence largely follows the defaults and is as follows\footnote{The model's default settings can be found here: \url{https://huggingface.co/distilbert-base-german-cased/blob/main/config.json}.}:
 
@@ -209,13 +182,45 @@ Firstly, we 'blindfolded' our model in that we excluded party labels and any wor
 
 \textbf{[LSTM]}
 
-
 % How you ran your experiments (e.g. model configurations, learning rate, training time, etc.)
 
 
-\paragraph{Results:} We classified a training set of 4,000 newspaper articles using model 2 (fine-tuned on party press releases). We expected articles from conservative newspapers FAZ and Welt to be more similar to Union and FDP and possibly the AfD, especially compared to the progressive TAZ. Spiegel Online (SPON) is expected to be equally similar to right- and leftwing newspapers.
+\paragraph{Results, in-domain:}  We have successfully fine-tuned a BERT-model to classify party-press releases by authorship. The performance of this model is shown in table \ref{fig:perf_init}. As the reader can see, the model performs at a very high, near-perfect level for all categories. The impressive performance of this model on the press releases was rather surprising to the authors. We took further steps to estimate the model performance by changing the input data in two distinct ways and assessing its impact on the performance. 
 
-For the three daily newspapers, we can validate our expectation using survey data from the 2017 German Longitudinal Election Study's Rolling Cross-Section (GLES-RCS; \cite{GLES2017RCS}). The study asked respondents whether they read a daily newspaper, and if so, whether they felt the newspaper's reporting favored certain parties over others. While these estimates are likely biased by the respondents own political stances (and as such likely underestimate the ideological extremity of their paper), they do provide a first clue. Table \ref{tab:gles} shows the aggregated results of this question. We can see that - in line with our initial expectation, FAZ and Welt are placed close to the centre-right Union and FDP (but also SPD), while the more left-wing TAZ is placed close to the three centre-left and left parties (Linke, Grüne, SPD; but note that this estimate is based on only 89 respondents). Note that none of the newspapers is considered to report favorable for the AfD.
+\begin{table}
+    \centering
+    \includegraphics[width=0.4\textwidth]{reports/midterm-report-latex/figures/party_class.png}
+    \caption{Performance of default BERT model for the classification of party press releases.}
+    \label{fig:perf_init}
+\end{table}
+
+Firstly, we 'blindfolded' our model in that we excluded party labels and any words referring to the parties (such as colors) from the analysis (the full list of terms excluded can be found in Appendix A). If the model performs high still, it should indeed pick up distinct rhetorical styles of the parties. Secondly, we conducted a train-test split based on the date of the press release. That is, the test set consists of press releases from a period following the period of the training sample. If the model is overfitting in the training process, this should result in severely worse performance in the out-of sample set.
+
+\begin{table}
+    \centering
+    \includegraphics[width=0.4\textwidth]{reports/final-report-latex/figures/blindfolded_insample.png}
+    \caption{Performance of default BERT model for the classification of party press releases based on the \textbf{censored in-sample} data.}
+    \label{fig:perf_in}
+\end{table}
+
+Table \ref{fig:perf_in} shows the performance of the blindfolded classifier predicting a validation set from the same sampling period as the training data. As the reader can see, the performance is virtually identical. This is very, very surprising, given that the most obvious cues - references to other parties. Have been removed. This indicates one of three things. First, the performance might accurately describe the classifiers ability to distinguish partisan differences in language. We will discuss this option further in a moment. Second, we might have missed some obvious cues in the blindfolding process. While our dictionary of party references is rather extensive (see Appendix A), it might still miss important cues that we did not think of. One way to address this issue in the future might be to use word embeddings to expand our dictionary for blindfolding. A third option is that BERT is too powerful, learning some spurious statistical cues to place party press releases with parties (\cite{DBLP:journals/corr/abs-1907-07355}).
+
+To improve our understanding of the impressive performance, we use the model to predict labels of an out-of sample dataset. Remember: if the performance is strongly affected, we are overfitting on the training set. Table \ref{fig:perf_out} shows the performance for the test sample. As we can see, the performance is still impressively high for many parties, nearly perfectly predicting press releases of Greens, Linke, and Union. AfD and FDP show somewhat decreased but still great performance, although the recall for FDP press releases is not great at $.72$. However, the precision is severely decreased for the SPD at about $.52$. Inspection of the cross tabulation for predicted and actual labels (not shown) indicates that the classifier confuses AfD and FDP press releases for SPD press releases.
+
+It is somewhat hard to make clear statements based on this evidence, but given that AfD and SPD occupy opposite ends of the ideological spectrum and that one is an opposition, the other a governing party, a well-performing classifier should not confuse the two. It is thus more likely that the classifier picks up spurious relationships in the data that we do not understand. However, before concluding, we will assess whether the newspaper estimates produced by the BERT model are in line with our expectations and stable across different specifications.
+
+
+\begin{table}
+    \centering
+    \includegraphics[width=0.4\textwidth]{reports/final-report-latex/figures/blindfolded_outsample.png}
+    \caption{Performance of default BERT model for the classification of party press releases based on the \textbf{censored out-of-sample} data.}
+    \label{fig:perf_out}
+\end{table}
+
+
+\paragraph{Results, out of domain:} We classified a training set of 4,000 newspaper articles using the models described above. We expected articles from conservative newspapers FAZ and Welt to be more similar to Union and FDP and possibly the AfD, especially compared to the progressive TAZ. Spiegel Online (SPON) is expected to be equally similar to right- and leftwing newspapers.
+
+For the three daily newspapers, we can validate our expectation using survey data from the 2017 German Longitudinal Election Study's Rolling Cross-Section (GLES-RCS; \cite{GLES2017RCS}). The study asked respondents whether they read a daily newspaper, and if so, whether they felt the newspaper's reporting favored certain parties over others. While these estimates are likely biased by the respondents own political stances (and as such likely underestimate the ideological extremity of their paper), they do provide a first clue. Table \ref{tab:gles} shows the aggregated results of this question. We can see that - in line with our initial expectation, FAZ and Welt are placed close to the centre-right Union and FDP (but also SPD), while the more left-wing TAZ is placed close to the three centre-left and left parties (Linke, Grüne, SPD; but note that this estimate is based on only 89 respondents). None of the newspapers is considered to contain coverage particularly favorable for the AfD.
 
 \begin{table}[!htbp] \centering 
     \begin{tabular}{@{\extracolsep{0pt}} lccccccc} 
@@ -234,7 +239,11 @@ For the three daily newspapers, we can validate our expectation using survey dat
   \label{tab:gles} 
 \end{table} 
 
-We estimated the similarity of reporting by German newspapers FAZ, Spiegel, TAZ and Welt using the simple BERT model, given its outstanding performance on the training data. The results can be seen in table \ref{tbl:means}, which shows the average probability for an article to be classified as being authored by a given party. As expected, FAZ and Welt are very similar to Union (81\%) and FDP (58\%/55\%), but also rather similar to the Greens (36\%/35\%). While they show the highest similarity to the AfD (8\%/7\%), similarity to the radical-right party is generally on a very low level among all newspapers. Spiegel Online (SPON) shows lower similarity to the FDP and closer to Union and Greens, but is generally rather similar to the right-wing newspapers. As expected, the TAZ shows a comparatively different profile, being very similar to the Greens (average likelihood 70\%), and less similar to the Union parties (41\%), the FDP (32\%), and the AfD (5\%). Surprisingly, it also shows the lowest similarity to the Linke (13\%). Maybe most surprising is the general low similarity to SPD press releases (4\%/5\%). It seems the party has a rather distinctive style in its press releases.\\
+We estimated the similarity of reporting by German newspapers FAZ, Spiegel, TAZ and Welt using the simple BERT model, trained on the full data. The results can be seen in table \ref{tbl:means}, which shows the average probability for an article assigned by the classifier. As expected, FAZ and Welt are very similar to Union (81\%) and FDP (58\%/55\%), but also rather similar to the Greens (36\%/35\%). While they show the highest similarity to the AfD (8\%/7\%), similarity to the radical-right party is generally on a very low level among all newspapers. Spiegel Online (SPON) shows lower similarity to the FDP and closer to Union and Greens, but is generally rather similar to the right-wing newspapers. As expected, the TAZ shows a comparatively different profile, being very similar to the Greens (average likelihood 70\%), and less similar to the Union parties (41\%), the FDP (32\%), and the AfD (5\%). Surprisingly, it also shows the lowest similarity to the Linke (13\%). Maybe most surprising is the general low similarity to SPD press releases (4\%/5\%). It seems the party has a rather distinctive style in its press releases.
+
+While the general placement of newspapers is rather similar to the readers' placement (TAZ more left-wing compared to Welt and FAZ), two things are not in line with expectations: the low representation of the SPD in the news articles, and the lowest score for the Linke in the TAZ articles - after all, this is the most left-wing publication. 
+
+\textbf{[DISCUSS REMAINING TWO TABLES]}
 
 \begin{table}[!htbp] \centering 
     \begin{tabular}{@{\extracolsep{1pt}} lcccccc}
@@ -248,7 +257,7 @@ We estimated the similarity of reporting by German newspapers FAZ, Spiegel, TAZ 
     Welt & $0.15$ & $0.35$ & $0.05$ & $0.81$ & $0.55$ & $0.07$ \\ 
     \hline \\[-1.8ex] 
     \end{tabular} 
-  \caption{Mean similarity estimate to each party by newspaper, based on training data including party labels and large time frame.} 
+  \caption{Mean similarity estimate to each party by newspaper, based on training data including party labels.} 
   \label{tbl:means} 
 \end{table}
 
@@ -279,13 +288,13 @@ Additionally censoring party labels in the training data:
 \hline \\[-1.8ex] 
 Paper & Linke & Grüne & SPD & Union & FDP & AfD \\ 
 \hline \\[-1.8ex] 
-FAZ & $0.15$ & $0.36$ & $0.05$ & $0.81$ & $0.58$ & $0.08$ \\ 
-Spiegel & $0.11$ & $0.39$ & $0.05$ & $0.89$ & $0.34$ & $0.07$ \\ 
-TAZ & $0.13$ & $0.69$ & $0.04$ & $0.41$ & $0.32$ & $0.05$ \\ 
-Welt & $0.15$ & $0.35$ & $0.05$ & $0.81$ & $0.55$ & $0.07$ \\ 
+FAZ & $0.17$ & $0.08$ & $0.35$ & $0.10$ & $0.95$ & $0.20$ \\ 
+Spiegel & $0.15$ & $0.06$ & $0.18$ & $0.22$ & $0.94$ & $0.12$ \\ 
+TAZ & $0.62$ & $0.08$ & $0.23$ & $0.07$ & $0.60$ & $0.17$ \\ 
+Welt & $0.16$ & $0.11$ & $0.31$ & $0.10$ & $0.93$ & $0.20$ \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
-\end{table}
+\end{table} 
 
 
 \textbf{[if time: COMPARE TO LSTM, OPTIMISED BERT}
@@ -293,6 +302,7 @@ Welt & $0.15$ & $0.35$ & $0.05$ & $0.81$ & $0.55$ & $0.07$ \\
 
 \paragraph{Comment on your quantitative results.} \textbf{[WHAT DOES THIS MEAN? IS THERE A MODEL THAT IS CONVINCING? WHAT IS GOING ON? - LETS DISCUSS THIS ONCE THE LSTM AND OPTIMISED BERT RESULTS ARE IN]}
 % Are they what you expected? Better than you expected? Worse than you expected? Why do you think that is? What does this tell you about what you should do next? Including training curves might be useful to discuss whether things are training effectively.
+\textbf{[SUMMARY: NOT STABLE!]}
 
 \section{*Analysis}
 
