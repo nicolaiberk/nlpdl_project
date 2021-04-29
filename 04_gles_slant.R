@@ -88,7 +88,7 @@ for (var in varnames){
 
 bild <- bild[-1]
 
-colnames(bild) <- c('CDU/CSU', 'SPD', 'Left', 'Greens', 'FDP', 'AfD')
+colnames(bild) <- c('Union', 'SPD', 'Linke', 'Grüne', 'FDP', 'AfD')
 bild['N'] <- nrow(gles_rcs[!is.na(gles_rcs$pre2501_3),])
 
 row.names(bild) <- 'bild'
@@ -100,10 +100,10 @@ newspapers <- c('FAZ', 'SZ', 'taz', 'Welt')
 indicator <- 2:5
 
 
-output <-  data.frame('CDU/CSU' = c(), 
+output <-  data.frame('Union' = c(), 
                       'SPD' = c(), 
-                      'Left' = c(), 
-                      'Greens' = c(), 
+                      'Linke' = c(), 
+                      'Grüne' = c(), 
                       'FDP' = c(), 
                       'AfD' = c(),
                       'N' = c())
@@ -136,7 +136,7 @@ for (i in (1:length(newspapers))){
   
   gles_sum <- gles_sum[-1]
   
-  colnames(gles_sum) <- c('CDU/CSU', 'SPD', 'Left', 'Greens', 'FDP', 'AfD')
+  colnames(gles_sum) <- c('Union', 'SPD', 'Linke', 'Grüne', 'FDP', 'AfD')
   
   gles_sum['N'] <- nrow(temp)
   
@@ -145,5 +145,7 @@ for (i in (1:length(newspapers))){
   
 }
 
-slant <- rbind(bild, output)
-knitr::kable(round(slant, 2))
+slant <- rbind(bild, output) %>% round(2)
+slant <- slant[, c("Linke", "Grüne", "SPD", "Union", "FDP", "AfD", "N")]
+
+stargazer::stargazer(slant, summary = F, type = "latex", digits = 2)
