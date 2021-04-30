@@ -73,7 +73,7 @@ Nicolai Berk\\
 % \end{itemize}
 
 %%%%%%%%% BODY TEXT
-\section*{Introduction}
+\section{Introduction}
 
 % The introduction explains the problem, why it's difficult, interesting, or important, how and why current methods succeed/fail at the problem, and explains the key ideas of your approach and results. Though an introduction covers similar material as an abstract, the introduction gives more space for motivation, detail, references to existing work, and to capture the reader's interest.
 
@@ -89,7 +89,7 @@ Outside of academia, a confident and robust classifier of newspaper bias might h
 
 The experiments conducted by the authors indicate that the training on party labels cannot be easily translated to the domain of newspaper articles. While our models show impressive performance in validation, out-of-sample test sets, and even when crucial information like the party names are censored in the training data, this does not translate into stable estimates of newspaper bias. While the broad expectations of newspapers' left-right placement are always confirmed, the estimates about which specific party a newspaper resembles are highly sensitive to minor changes in the inputs. It is thus recommended to refrain from using deep learning in the absence of sufficient training data.\\
 
-\section*{Related Work}
+\section{Related Work}
 
 % This section helps the reader understand the research context of your work, by providing an overview of existing work in the area.
 
@@ -109,7 +109,7 @@ We believe both approaches are likely inferior to more complex deep learning mod
 
 A recent (yet unpublished) contribution proposes "cross-domain topic classification" to classify topics in parliamentary debates using a classifier trained on party manifestos (\cite{Osnabrugge2020}). While this is very close to our approach, we improve upon this contribution in three distinct ways. First, while Osnabrügge \textit{et al} employ relatively simple regression models using a bag-of-words approach, we propose the use of advanced deep learning techniques to uncover deeper meaning. Second, scaling similarity to political parties is a generalisable approach, as they are the major organising units of political conflict in contemporary Western societies. Additionally, party communication does not necessitate further labelling. Third, and maybe most importantly, we assess \textit{how much} is added by training the classifiers across domains.\\
 
-\section*{Proposed Method}
+\section{Proposed Method}
 
 % This section details your approach(es) to the problem. For example, this is where you describe the architecture of your model, and any other key methods or algorithms.
 
@@ -156,9 +156,9 @@ This approach allows to assess by how much model performance is improved upon, w
 
 % \paragraph{Hardware}: If relevant, list hardware resources you used.
 
-\paragraph{Experimental details:\\}
+\paragraph{Evaluation method:\\}
 
-\textit{Study 1:} We train a BERT model to identify authorship of party press releases. Given that the initial performance is very high, we 'blindfold' the model, removing party labels from the input data. This should help us to understand whether the classifier is able to distinguish press releases based on partisan rhetoric alone. Additionally, we predict a dataset of press releases following temporally on the training set. Any overfitting in our data should result in weak performance in the test set.
+\textit{Study 1:} We train a BERT model to identify authorship of party press releases. Given that the initial performance is very high, we 'blindfold' the model, removing party labels from the input data. This should help us to understand whether the classifier is able to distinguish press releases based on partisan rhetoric alone. Additionally, we predict a dataset of press releases following temporally on the training set. Any over-fitting in our data should result in weak performance in the test set.
 
 \textit{Study 2:} We use the models trained in study 1 to estimate the ideological bias in 4,000 newspaper articles from German newspapers FAZ, Spiegel Online, TAZ, and Welt. We compare the different models' output with survey data on the partisan slant by newspaper readers and assess the stability of the results.
 
@@ -185,7 +185,7 @@ This approach allows to assess by how much model performance is improved upon, w
 % How you ran your experiments (e.g. model configurations, learning rate, training time, etc.)
 
 
-\paragraph{Results, in-domain:}  We have successfully fine-tuned a BERT-model to classify party-press releases by authorship. The performance of this model is shown in table \ref{fig:perf_init}. As the reader can see, the model performs at a very high, near-perfect level for all categories. The impressive performance of this model on the press releases was rather surprising to the authors. We took further steps to estimate the model performance by changing the input data in two distinct ways and assessing its impact on the performance. 
+\paragraph{Results, study 1:}  We have successfully fine-tuned a BERT-model to classify party-press releases by authorship. The performance of this model is shown in table \ref{fig:perf_init}. As the reader can see, the model performs at a very high, near-perfect level for all categories. The impressive performance of this model on the press releases was rather surprising to the authors. We took further steps to estimate the model performance by changing the input data in two distinct ways and assessing its impact on the performance. 
 
 \begin{table}
     \centering
@@ -218,7 +218,7 @@ It is somewhat hard to make clear statements based on this evidence, but given t
 \end{table}
 
 
-\paragraph{Results, out of domain:} We classified a training set of 4,000 newspaper articles using the models described above. We expected articles from conservative newspapers FAZ and Welt to be more similar to Union and FDP and possibly the AfD, especially compared to the progressive TAZ. Spiegel Online (SPON) is expected to be equally similar to right- and leftwing newspapers.
+\paragraph{Results, study 2:} We classified a training set of 4,000 newspaper articles using the models described above. We expected articles from conservative newspapers FAZ and Welt to be more similar to Union and FDP and possibly the AfD, especially compared to the progressive TAZ. Spiegel Online (SPON) is expected to be equally similar to right- and leftwing newspapers.
 
 For the three daily newspapers, we can validate our expectation using survey data from the 2017 German Longitudinal Election Study's Rolling Cross-Section (GLES-RCS; \cite{GLES2017RCS}). The study asked respondents whether they read a daily newspaper, and if so, whether they felt the newspaper's reporting favored certain parties over others. While these estimates are likely biased by the respondents own political stances (and as such likely underestimate the ideological extremity of their paper), they do provide a first clue. Table \ref{tab:gles} shows the aggregated results of this question. We can see that - in line with our initial expectation, FAZ and Welt are placed close to the centre-right Union and FDP (but also SPD), while the more left-wing TAZ is placed close to the three centre-left and left parties (Linke, Grüne, SPD; but note that this estimate is based on only 89 respondents). None of the newspapers is considered to contain coverage particularly favorable for the AfD.
 
@@ -243,7 +243,6 @@ We estimated the similarity of reporting by German newspapers FAZ, Spiegel, TAZ 
 
 While the general placement of newspapers is rather similar to the readers' placement (TAZ more left-wing compared to Welt and FAZ), two things are not in line with expectations: the low representation of the SPD in the news articles, and the lowest score for the Linke in the TAZ articles - after all, this is the most left-wing publication. 
 
-\textbf{[DISCUSS REMAINING TWO TABLES]}
 
 \begin{table}[!htbp] \centering 
     \begin{tabular}{@{\extracolsep{1pt}} lcccccc}
@@ -261,11 +260,11 @@ While the general placement of newspapers is rather similar to the readers' plac
   \label{tbl:means} 
 \end{table}
 
-We restricted the time-frame of the training time, which severely affected our results: 
+We restricted the time-frame of the training data to reflect the time-frame of the newspaper articles (2013 - 2018). This should ensure that performance for all parties is similar and not driven by the higher prevalence of similar topics in the training data press releases. This minor change severely affected our results, as shown in table \ref{tab:pred_time}. Resemblance of all newspapers towards Greens and Union have strongly decreased, while resemblance to Linke, SPD, and especially FDP and AfD has strongly increased. All newspapers (including the left-wing TAZ) are now estimated to strongly resemble the FDP instead of the Union. While the higher estimates for SPD are welcomed and in line with readers' expectations, the strong resemblance with the FDP is puzzling, as are the high scores for the AfD and low scores for the Union.
 
 \begin{table}[!htbp] \centering 
-  \caption{Placement of newspapers with date-restricted, labelled training data.} 
-  \label{} 
+  \caption{Placement of newspapers with date-restricted training data.} 
+  \label{tab:pred_time} 
 \begin{tabular}{@{\extracolsep{1pt}} lccccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
@@ -278,11 +277,14 @@ Welt & $0.20$ & $0.15$ & $0.26$ & $0.24$ & $0.84$ & $0.37$ \\
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table} 
-Additionally censoring party labels in the training data:
+
+We think that - especially in case of the AfD - coverage about the party might be mis-classified as coverage similar to the parties' language. Hence, as in Study 1, we use the 'blindfolded' classifier to estimate the partisan slant of news coverage. Although it could be argued that party labels are a very important source of information as even negative coverage about a party can increase voters' awareness about the party and subsequently its electoral performance. Nevertheless, coverage about a party does not mean that that coverage is biased towards that party. More importantly, party labels that are highly indicative of press release authorship convey little information about ideological bias in news reporting.
+
+Table \ref{tab:pred_blind} shows the estimates of this 'blindfolded' classifier. They are somewhat similar to the full but also time-restricted data presented before, but with few marked differences. The Linke is now strongly represented in the TAZ, especially compared to the other newspapers - an estimate that is in line with expectations. However, the Grüne are now least represented in all newspapers. Even the left-wing TAZ bears stronger similarities to the far-right AfD than the Grüne. The right-wing newspapers are now showing the highest similarity to the SPD, which is non-intuitive and in direct contradicition to our survey data. All newspapers show very weak resemblance to Union press releases, again contradicting the survey data. The high similarity to the FDP has even more increased, with the average news article in FAZ, Spiegel, and Welt being estimated to be over 90\% similar to FDP press-releases. Even the left-wing TAZ shows the second highest resemblance to the economically right-wing party. This is maybe the strongest inconsistency with the survey data. Lastly, the similarity to the AfD was somewhat decreased. The right-wing newspapers show stronger resemblance with the far-right party than the others, but all estimates are higher than what is expected from the survey data.
 
 \begin{table}[!htbp] \centering 
-  \caption{Placement of newspapers with removed party labels.} 
-  \label{} 
+  \caption{Placement of newspapers using blindfolded classifier.} 
+  \label{tab:pred_blind} 
 \begin{tabular}{@{\extracolsep{1pt}} lccccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
@@ -300,11 +302,11 @@ Welt & $0.16$ & $0.11$ & $0.31$ & $0.10$ & $0.93$ & $0.20$ \\
 \textbf{[if time: COMPARE TO LSTM, OPTIMISED BERT}
 % Report the quantitative results that you have found so far. Use a table or plot to compare multiple results and compare against baselines.
 
-\paragraph{Comment on your quantitative results.} \textbf{[WHAT DOES THIS MEAN? IS THERE A MODEL THAT IS CONVINCING? WHAT IS GOING ON? - LETS DISCUSS THIS ONCE THE LSTM AND OPTIMISED BERT RESULTS ARE IN]}
-% Are they what you expected? Better than you expected? Worse than you expected? Why do you think that is? What does this tell you about what you should do next? Including training curves might be useful to discuss whether things are training effectively.
-\textbf{[SUMMARY: NOT STABLE!]}
+\paragraph{Comment on your quantitative results.} So far, no stability emerged in the estimates assessed. Small changes in the input data resulted in vastly different estimates of newspaper bias. It seems that cross-domain applications of deep learning are highly sensitive to the form of the input data and that their application is not straightforward. 
 
-\section{*Analysis}
+% Are they what you expected? Better than you expected? Worse than you expected? Why do you think that is? What does this tell you about what you should do next? Including training curves might be useful to discuss whether things are training effectively.
+
+\section{Analysis}
 
 % Your report should include some qualitative evaluation. That is, try to understand your system (how it works, when it succeeds and when it fails) by measuring or inspecting key characteristics or outputs of your model.
 
@@ -314,11 +316,15 @@ Welt & $0.16$ & $0.11$ & $0.31$ & $0.10$ & $0.93$ & $0.20$ \\
 % \item The Practical Tips lecture notes has a detailed section on qualitative evaluation -- you may find it useful to reread it.
 % \end{itemize}
 
+\textbf{[DISCUSS WANDB IF APPROPRIATE]}
+
 \textbf{[DISCUSS WHETHER IMPROVED MODELS ARE EXPECTED TO SOLVE THIS PROBLEM]}
 
 
-\section{*Conclusions}
+\section{Conclusions}
 % Summarize the main findings of your project, and what you have learnt. Highlight your achievements, and note the primary limitations of your work. If you like, you can describe avenues for future work.
+
+The recommendation at this point is that researchers with cross-domain classification problems think hard about their input data, carefully validating their results, or apply simpler techniques where the estimates are more directly interpretable, such as regression. Nevertheless, cross-domain applications of deep learning are a promising avenue for further research. Future work here should assess how properties of the input data affect estimates in another domain and think carefully about validation to develop best practices for researches seeking to apply such methods.
 
 \section{Acknowledgements}
 
@@ -328,7 +334,9 @@ We thank the vast community contributing to the development of machine learning 
 
 \section{Contributions}
 
-Describe the contributions of each team member who worked on this project. You should write a brief summary of what each team member did for the project (about 1 or 2 sentences per person). We will read these descriptions and cross-reference with GitHub contributions in your project repository. For almost all teams, it will have no effect (team members all receive same grade), but for teams with very unequal contribution, we may investigate and/or give different grades to team members.
+% Describe the contributions of each team member who worked on this project. You should write a brief summary of what each team member did for the project (about 1 or 2 sentences per person). We will read these descriptions and cross-reference with GitHub contributions in your project repository. For almost all teams, it will have no effect (team members all receive same grade), but for teams with very unequal contribution, we may investigate and/or give different grades to team members.
+
+All progress was discussed together, although some tasks were taken up more by one author. While the initial idea was developed together, Nico set up the infrastructure and produced a minor first draft of the proposal. This early proposal was mostly worked on by Tom afterwards. Nico then developed the first classifier and corresponding estimates. He wrote most of the midterm report, where the first experiments were presented and the new direction of the project was proposed. Tom proposed the validation through politicians op-eds and collected this data, although we never got to actually use it. In the final weeks of the project, the authors mostly worked on different tasks. Nico worked on a better understanding of the initial BERT model using different input data, assessed survey data for validation, and set up the final report, while Tom moved to more advanced models, adding LSTM and an optimised BERT model. \textbf{[ADD SENTENCE ON FINAL REPORT FINALISATION]}
 
 \section{References}
 % Your references section should be produced using BibTeX.
@@ -337,8 +345,8 @@ Describe the contributions of each team member who worked on this project. You s
 \bibliography{bibliography.bib}
 }
 
-\section*{Appendix}
-If you wish, you can include an appendix, which should be part of the main PDF, and does not count towards the 8 page limit. Appendices can be useful to supply extra details, examples, figures, results, visualizations, etc., that you couldn't fit into the main paper. However, your grader does not have to read your appendix, and you should assume that you will be graded based on the content of the main part of your paper only.
+\section{Appendix}
+% If you wish, you can include an appendix, which should be part of the main PDF, and does not count towards the 8 page limit. Appendices can be useful to supply extra details, examples, figures, results, visualizations, etc., that you couldn't fit into the main paper. However, your grader does not have to read your appendix, and you should assume that you will be graded based on the content of the main part of your paper only.
 
 \paragraph{Appendix A} Regular expressions excluded for 'blindfolding', separated by comma:
 
