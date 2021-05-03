@@ -188,12 +188,12 @@ In addition to the previous model, we also ran a number of experiments to determ
 \begin{figure*}
     \begin{subfigure}[t]{0.89\textwidth}
         \centering
-        \includegraphics[width=.9\linewidth]{reports/final-report-latex/eval_precision_comp(1).png} 
+        \includegraphics[width=.9\linewidth]{reports/final-report-latex/figures/eval_precision_comp(1).png} 
         \caption{Precision} \label{fig:prec_comp}
     \end{subfigure}
     \begin{subfigure}[t]{0.89\textwidth}
         \centering
-        \includegraphics[width=.9\linewidth]{reports/final-report-latex/train_loss_comp(2).png} 
+        \includegraphics[width=.9\linewidth]{reports/final-report-latex/figures/train_loss_comp(2).png} 
         \caption{Training-Loss} \label{fig:train_loss_comp}
     \end{subfigure}
     \caption{Performance across the different experimental models on a series of key metrics.}
@@ -366,39 +366,42 @@ All progress was discussed together, although some tasks were taken up more by o
 
 CDU, Christlich Demokratische Union, Christlich-[Dd]emokratische Union, CSU, Christlich-[Ss]oziale Union, Christlich Soziale Union, [Ss]chwarzes, [Ss]chwarzer, [Ss]chwarzem, [Ss]chwarzen, [Ss]chwarze, [Ss]chwarz, Union, SPD, [Ss]ozialdemokratische Partei Deutschlands, [Ss]ozialdemokratisch, [Ss]ozialdemokraten, [Ss]ozialdemokratinnen, [Ss]ozialdemokrat, [Rr]oter, [Rr]otes, [Rr]otem, [Rr]oten, [Rr]ote, [Rr]ot, Bündnis90/die Grünen, Bündnis90 / die Grünen, [Gg]rünes, [Gg]rüner, [Gg]rünem', [Gg]rünen, [Gg]rüne, [Gg]rün, [Ll]inke, Linkspartei, Freie Demokratische Partei, FDP, [Gg]elber, [Gg]elbes, [Gg]elbem, [Gg]elben, [Gg]elbe, [Gg]elb, A[fF]D, Alternative für Deutschland
 
-\paragraph{Appendix B} Wandb output:
-\begin{figure*}
+\newpage
+
+\paragraph{Appendix B} Performance across the different experimental models on a series of key metrics:
+\begin{figure}[!ht]
     \centering
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]{reports/final-report-latex/eval_f1_comp(1).png} 
-        \caption{F1-metric} \label{fig:f1_comp}
-    \end{subfigure}
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering       \includegraphics[width=1\linewidth]{reports/final-report-latex/eval_accu_comp.png} 
-        \caption{Accuracy} \label{fig:accu_comp}
-    \end{subfigure}
+    \includegraphics[width=0.49\textwidth]{reports/final-report-latex/figures/eval_f1_comp(1).png} 
+    \caption{F1-metric} 
+    \label{fig:f1_comp}
+\end{figure}
 
-    \vspace{1cm}
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{reports/final-report-latex/train_learning_rate.png} 
-        \caption{Learning Rate} \label{fig:lr}
-    \end{subfigure}
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{reports/final-report-latex/recall_comp.png} 
-        \caption{Recall} \label{fig:recall}
-    \end{subfigure}
-    \caption{Performance across the different experimental models on a series of key metrics.}
-\end{figure*}
+\begin{figure}[!ht]
+    \centering       
+    \includegraphics[width=0.49\textwidth]{reports/final-report-latex/figures/eval_accu_comp.png} 
+    \caption{Accuracy} \label{fig:accu_comp}
+\end{figure}
 
-\paragraph{Appendix c} Confusion Matrix Main Model:
-
-\begin{figure*}
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=.9\linewidth]{reports/final-report-latex/image.png}
+    \includegraphics[width=0.49\textwidth]{reports/final-report-latex/figures/train_learning_rate.png} 
+    \caption{Learning Rate} \label{fig:lr}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.49\textwidth]{reports/final-report-latex/figures/recall_comp.png} 
+    \caption{Recall} \label{fig:recall}
+\end{figure}
+
+\newpage
+
+\paragraph{Appendix C} Confusion Matrix Main Model:
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.4\textwidth]{reports/final-report-latex/figures/image.png}
     \caption{Confusion Matrix - Main Model}
     \label{fig:conf_mat}
-\end{figure*}
+\end{figure}
 \end{document}
