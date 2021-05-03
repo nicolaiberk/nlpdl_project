@@ -35,7 +35,7 @@ We propose to use information from political texts with available labels - namel
 
 ## Task
 
-To understand how information from political actors can be used to understand ideological bias in other context, we train several DistilBERT transformer models^[https://huggingface.co/distilbert-base-german-cased] on a collection of over 28,000 German party press releases issued between 2013 and 2019, collected by the SCRIPTS project^[https://www.scripts-berlin.eu/]. These are then applied to a random subsample of 4,000  German newspaper articles from six major newspapers, published between 2013 and 2019, collected by one of the authors in a previous project^[https://github.com/nicolaiberk/_rrpviol_med]. To validate whether the newspaper placement by our classifiers conforms to general expectations about the ideological bias of these newspapers, we use data from a survey of newspaper readers asking them about the partisan bias of their newspaper [@GLES2017RCS].
+To understand how information from political actors can be used to understand ideological bias in other context, we train several DistilBERT transformer models^[https://huggingface.co/distilbert-base-german-cased] on a collection of over 40,000 German party press releases issued between 2013 and 2019, collected by the SCRIPTS project^[https://www.scripts-berlin.eu/]. These are then applied to a random subsample of 4,000  German newspaper articles from six major newspapers, published between 2013 and 2019, collected by one of the authors in a previous project^[https://github.com/nicolaiberk/_rrpviol_med]. To validate whether the estimates from our classifiers conform to general expectations about the ideological bias of these newspapers, we use data from a survey of newspaper readers asking them about the partisan bias of their newspaper [@GLES2017RCS].
 
 
 ## Proposed method
@@ -52,8 +52,8 @@ In study 2, these models are applied to a range of newspaper articles, indicatin
 
 As described, we start by assessing the model's performance on a set of press releases issued in the same period as the training data. The results are shown in [the table](#fig:perf_init){reference-type="ref" reference="fig:perf_init"}. As the reader can see, the model performs at a very high, near-perfect level for all categories. The impressive performance of this model on the press releases was rather surprising. Indeed, this performance seemed too good to be true and raised a number of concerns, most notably regarding issues of overfitting.
 
-[Table: Distilbert model performance on unaltered in-sample test set:]{#fig:perf_init label="fig:perf_init"}
 ![Distilbert model performance on unaltered in-sample test set](figures/party_class.png){width="60%"}
+: Table: Distilbert model performance on unaltered in-sample test set.[]{#fig:perf_init label="fig:perf_init"}
 
 To assess whether this is the case, we \"blindfolded\" our model by excluding party labels and any words referring to the parties (such as party-related colours) from the analysis ^[the full list of excluded terms can be found in Appendix A of the final report]. Additionally, we look at out-of-sample predictions to assess whether the model is overfitting. This means that we train the model (as before) on press releases published before 01.01.2018, but assess the performance on data after this date. If the model performance drops off significantly, this would suggest that the classifier picks up and incorporates party-specific clues or speech patterns that could artificially inflate its accuracy. Should the model continue to perform at such a high level, we would have to start considering that the model is indeed this accurate.
 
@@ -63,8 +63,8 @@ As stated previously, this performance, while impressive, will likely not suffic
 
 These results do not give a definite answer to whether the classifier performs as intended. The numbers just seem a little too good. Given that AfD and SPD occupy opposite ends of the ideological spectrum and that one is an opposition, the other a governing party, a well-performing classifier should not confuse the two. It is thus more likely that the classifier picks up spurious relationships in the data that we do not understand. However, before concluding, we will assess  whether the newspaper estimates produced by the DistilBert model are in line with our expectations and stable across different specifications.
 
-[Table: Distilbert Model performance on out-of-sample test set with party references removed:]{#fig:perf_out label="fig:perf_out"}
 ![Distilbert Model performance on out-of-sample test set with party references removed.](figures/blindfolded_outsample.png){width="60%"}
+: Table: Distilbert Model performance on out-of-sample test set with party references removed.[]{#fig:perf_out label="fig:perf_out"}
 
 
 **Study 2**:
